@@ -1,14 +1,17 @@
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("quizkartehai")
 logger.setLevel(logging.INFO)
 
-console_handler = logging.StreamHandler()
+# Prevent duplicate handlers
+if not logger.handlers:
 
-formatter = logging.Formatter(
-    "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
-)
+    console_handler = logging.StreamHandler()
 
-console_handler.setFormatter(formatter)
+    formatter = logging.Formatter(
+        "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+    )
 
-logger.addHandler(console_handler)
+    console_handler.setFormatter(formatter)
+
+    logger.addHandler(console_handler)
