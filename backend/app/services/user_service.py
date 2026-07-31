@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
+from app.auth.hashing import hash_password
 
 from app.models.user import User
 from app.schemas.user import UserCreate
@@ -18,9 +19,10 @@ def create_user_service(db: Session, user: UserCreate):
         )
 
     new_user = User(
-        name=user.name,
-        email=user.email,
-    )
+    name=user.name,
+    email=user.email,
+    hashed_password=hash_password(user.password),
+)
 
     db.add(new_user)
     db.commit()
