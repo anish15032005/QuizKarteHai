@@ -4,3 +4,8 @@ router = APIRouter(
     prefix="/auth",
     tags=["Authentication"],
 )
+
+
+@router.get("/test")
+def test_auth():
+    return {"message": "Authentication route working!"}
