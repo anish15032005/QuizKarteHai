@@ -1,8 +1,9 @@
 from pathlib import Path
 import shutil
+
+import fitz
 from fastapi import UploadFile
 
-# Folder where uploaded PDFs will be stored
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
@@ -17,3 +18,17 @@ async def save_pdf(file: UploadFile):
         shutil.copyfileobj(file.file, buffer)
 
     return file_path
+
+
+def extract_text_from_pdf(file_path: Path):
+
+    document = fitz.open(file_path)
+
+    text = ""
+
+    for page in document:
+        text += str(page.get_text("text"))
+
+    document.close()
+
+    return text
