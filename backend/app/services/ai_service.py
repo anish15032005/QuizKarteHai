@@ -16,8 +16,8 @@ def generate_mcqs(text: str, num_questions: int = 5):
     )
 
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model=settings.GOOGLE_MODEL,
         contents=prompt,
-    )
+)
 
     return response.text
