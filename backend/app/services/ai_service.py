@@ -1,3 +1,5 @@
+import time
+
 from google import genai
 
 from app.core.config import settings
@@ -15,9 +17,17 @@ def generate_mcqs(text: str, num_questions: int = 5):
         num_questions=num_questions,
     )
 
-    response = client.models.generate_content(
-        model=settings.GOOGLE_MODEL,
-        contents=prompt,
-)
+    for attempt in range(3):
+        try:
+            response = client.models.generate_content(
+                model=settings.GOOGLE_MODEL,
+                contents=prompt,
+            )
 
-    return response.text
+            return response.text
+
+        except Exception:
+            if attempt == 2:
+                raise
+
+            time.sleep(3)
