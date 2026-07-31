@@ -10,9 +10,9 @@ Requirements:
 
 JSON format:
 
-{
+{{
   "questions": [
-    {
+    {{
       "question": "...",
       "options": [
         "...",
@@ -22,9 +22,9 @@ JSON format:
       ],
       "answer": "...",
       "explanation": "..."
-    }
+    }}
   ]
-}
+}}
 
 Study Material:
 
