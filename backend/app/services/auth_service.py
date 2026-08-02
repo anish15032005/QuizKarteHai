@@ -1,5 +1,6 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
+from app.auth.jwt_handler import create_access_token
 
 from app.models.user import User
 from app.schemas.user import UserLogin
@@ -27,4 +28,13 @@ def login_user_service(db: Session, user: UserLogin):
             detail="Invalid email or password",
         )
 
-    return existing_user
+    access_token = create_access_token(
+    {
+        "sub": existing_user.email
+    }
+)
+
+    return {
+    "access_token": access_token,
+    "token_type": "bearer",
+}
