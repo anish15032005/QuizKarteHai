@@ -1,5 +1,3 @@
-#backend/app/services/quiz_service.py
-
 from sqlalchemy.orm import Session
 
 from app.models.question import Question
@@ -7,13 +5,15 @@ from app.models.quiz import Quiz
 from app.schemas.quiz import QuizQuestion
 
 
-def create_quiz(
+def create_quiz_with_questions(
     db: Session,
-    title: str,
     user_id: int,
+    title: str,
+    questions: list[QuizQuestion],
 ) -> Quiz:
     """
-    Create a new quiz.
+    Create a quiz and all of its questions
+    in a single database transaction.
     """
 
     quiz = Quiz(
@@ -22,20 +22,8 @@ def create_quiz(
     )
 
     db.add(quiz)
-    db.commit()
-    db.refresh(quiz)
 
-    return quiz
-
-
-def save_questions(
-    db: Session,
-    quiz: Quiz,
-    questions: list[QuizQuestion],
-) -> None:
-    """
-    Save all questions belonging to a quiz.
-    """
+    db.flush()
 
     for question in questions:
 
@@ -52,3 +40,7 @@ def save_questions(
         db.add(db_question)
 
     db.commit()
+
+    db.refresh(quiz)
+
+    return quiz
