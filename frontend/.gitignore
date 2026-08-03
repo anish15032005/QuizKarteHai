@@ -23,3 +23,21 @@ node_modules/
 
 # Build
 dist/
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Environment
+.env
+backend/.env
+
+# Database
+*.db
+
+# Logs
+logs/
+backend/logs/
+
+# Uploads
+backend/uploads/

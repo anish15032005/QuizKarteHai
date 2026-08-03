@@ -1,3 +1,5 @@
+// frontend/src/routes/index.tsx
+
 import { createBrowserRouter } from "react-router-dom";
 
 import Login from "../pages/Login";
@@ -6,6 +8,8 @@ import Upload from "../pages/Upload";
 import Quiz from "../pages/Quiz";
 import Result from "../pages/Result";
 
+import ProtectedRoute from "../components/ProtectedRoute";
+
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -13,18 +17,34 @@ export const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: (
+            <ProtectedRoute>
+                <Dashboard />
+            </ProtectedRoute>
+        ),
     },
     {
         path: "/upload",
-        element: <Upload />,
+        element: (
+            <ProtectedRoute>
+                <Upload />
+            </ProtectedRoute>
+        ),
     },
     {
         path: "/quiz/:id",
-        element: <Quiz />,
+        element: (
+            <ProtectedRoute>
+                <Quiz />
+            </ProtectedRoute>
+        ),
     },
     {
         path: "/result/:id",
-        element: <Result />,
+        element: (
+            <ProtectedRoute>
+                <Result />
+            </ProtectedRoute>
+        ),
     },
 ]);
