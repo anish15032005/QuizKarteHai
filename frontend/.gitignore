@@ -1,0 +1,25 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Environment
+.env
+backend/.env
+
+# Database
+*.db
+
+# Logs
+logs/
+backend/logs/
+
+# Uploads
+uploads/
+backend/uploads/
+
+# Node
+node_modules/
+
+# Build
+dist/
